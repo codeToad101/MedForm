@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+<style>
+.question { display: none; }
+.question.active { display: block; }
+/* Quiz-specific styles, integrated with global CSS */
+        /* .quiz-container {
+            max-width: 600px;
+            margin: 2em auto;
+            background-color: var(--light-green);
+            padding: 2em;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        } */
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding-top: 2em;
+        }
+
+        .quiz-container {
+            max-width: 600px;
+            width: 90%;
+            margin: 0 auto;
+            background-color: var(--light-green);
+            padding: 2em;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 0.5em;
+        }
+
+        .question {
+            display: none;
+        }
+
+        .question.active {
+            display: block;
+        }
+
+        .question p {
+            font-weight: 500;
+            margin-bottom: 1em;
+        }
+
+        .question label {
+            display: block;
+            margin-bottom: 0.5em;
+            cursor: pointer;
+        }
+
+        .next-btn {
+            margin-top: 1em;
+        }
+
+        input[type="text"] {
+            width: 95%;
+            padding: 0.6em;
+            margin-bottom: 1em;
+            border: 1px solid #c8d8ce;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+</style>
+</head>
+<body>
+
+<h1>Intake Quiz</h1>
+<div class="quiz-container">
+<form id="quizForm" method="POST" action="/quiz/{{ token }}">
+
+    <!-- init -->
+    <div class="question active" id="q0">
+        <p> init ans</p>
+        <label>First Name:</label>
+        <input type="text" name="firstName" placeholder="First Name" required>
+        <label>Last Name:</label>
+        <input type="text" name="lastName" placeholder="Last Name" required>
+        <label>Email:</label>
+        <input type="text" name="email" placeholder="Email" required>
+        <label>Phone:</label>
+        <input type="text" name="phone" placeholder="Phone" required>
+        <button type="button" onclick="validateInit()" onclick="nextQuestion(0)">Next</button>
+    </div>
+
+    <!-- Question 1 -->
+    <div class="question" id="q1">
+        <p>1. answer q1</p>
+        <label><input type="radio" name="ans1" value="A" required> A</label><br>
+        <label><input type="radio" name="ans1" value="B" required> B</label><br>
+        <label><input type="radio" name="ans1" value="C" required> C</label><br>
+        <label><input type="radio" name="ans1" value="D" required> D</label><br>
+        <button type="button" onclick="nextQuestion(1)">Next</button>
+    </div>
+
+    <!-- Question 2 -->
+    <div class="question" id="q2">
+        <p>2. answer q2</p>
+        <label><input type="radio" name="ans2" value="A" required> A</label><br>
+        <label><input type="radio" name="ans2" value="B" required> B</label><br>
+        <label><input type="radio" name="ans2" value="C" required> C</label><br>
+        <label><input type="radio" name="ans2" value="D" required> D</label><br>
+        <button type="button" onclick="nextQuestion(2)">Next</button>
+    </div>
+
+    <!-- Question 3 -->
+    <div class="question" id="q3">
+        <p>3. answer q3</p>
+        <label><input type="radio" name="ans3" value="A" required> A</label><br>
+        <label><input type="radio" name="ans3" value="B" required> B</label><br>
+        <label><input type="radio" name="ans3" value="C" required> C</label><br>
+        <label><input type="radio" name="ans3" value="D" required> D</label><br>
+        <button type="button" onclick="nextQuestion(3)">Next</button>
+    </div>
+
+    <!-- Question 4 -->
+    <div class="question" id="q4">
+        <p>4. answer q4</p>
+        <label><input type="radio" name="ans4" value="A" required> A</label><br>
+        <label><input type="radio" name="ans4" value="B" required> B</label><br>
+        <label><input type="radio" name="ans4" value="C" required> C</label><br>
+        <label><input type="radio" name="ans4" value="D" required> D</label><br>
+        <button type="button" onclick="nextQuestion(4)">Next</button>
+    </div>
+
+    <!-- Question 5 -->
+    <div class="question" id="q5">
+        <p>5. answer q5</p>
+        <label><input type="radio" name="ans5" value="A" required> A</label><br>
+        <label><input type="radio" name="ans5" value="B" required> B</label><br>
+        <label><input type="radio" name="ans5" value="C" required> C</label><br>
+        <label><input type="radio" name="ans5" value="D" required> D</label><br>
+        <button type="button" onclick="nextQuestion(5)">Next</button>
+    </div>
+
+    <!-- Question 6 -->
+    <div class="question" id="q6">
+        <p>6. answer q6</p>
+        <label><input type="radio" name="ans6" value="A" required> A</label><br>
+        <label><input type="radio" name="ans6" value="B" required> B</label><br>
+        <label><input type="radio" name="ans6" value="C" required> C</label><br>
+        <label><input type="radio" name="ans6" value="D" required> D</label><br>
+        <button type="button" onclick="nextQuestion(6)">Next</button>
+    </div>
+
+    <!-- Question 2 -->
+    <div class="question" id="q7">
+        <p>7. answer q7</p>
+        <label><input type="radio" name="ans7" value="A" required> A</label><br>
+        <label><input type="radio" name="ans7" value="B" required> B</label><br>
+        <label><input type="radio" name="ans7" value="C" required> C</label><br>
+        <label><input type="radio" name="ans7" value="D" required> D</label><br>
+        <button type="button" onclick="nextQuestion(7)">Next</button>
+    </div>
+
+    <!-- Question 8 -->
+    <div class="question" id="q8">
+        <p>8. answer q8</p>
+        <label><input type="radio" name="ans8" value="A" required> A</label><br>
+        <label><input type="radio" name="ans8" value="B" required> B</label><br>
+        <label><input type="radio" name="ans8" value="C" required> C</label><br>
+        <label><input type="radio" name="ans8" value="D" required> D</label><br>
+        <button type="button" onclick="nextQuestion(8)">Next</button>
+    </div>
+
+    <!-- Question 9 -->
+    <div class="question" id="q9">
+        <p>9. answer q9</p>
+        <label><input type="radio" name="ans9" value="A" required> A</label><br>
+        <label><input type="radio" name="ans9" value="B" required> B</label><br>
+        <label><input type="radio" name="ans9" value="C" required> C</label><br>
+        <label><input type="radio" name="ans9" value="D" required> D</label><br>
+        <button type="button" onclick="nextQuestion(9)">Next</button>
+    </div>
+
+    <!-- Question 10 -->
+    <div class="question" id="q10">
+        <p>10. answer q10</p>
+        <label><input type="radio" name="ans10" value="A" required> A</label><br>
+        <label><input type="radio" name="ans10" value="B" required> B</label><br>
+        <label><input type="radio" name="ans10" value="C" required> C</label><br>
+        <label><input type="radio" name="ans10" value="D" required> D</label><br>
+        <button type="submit">Submit Quiz</button>
+    </div>
+
+</form>
+</div>
+
+
+<script>
+// document.addEventListener("keydown", function (e) {
+//     if (e.key === "Enter") {
+//         const active = document.querySelector(".question.active");
+//         const inputs = active.querySelectorAll("input[type='text']");
+//         if (inputs.length > 0) {
+//             e.preventDefault();
+//             nextQuestion(Number(active.id.replace("q", "")));
+//         }
+//     }
+// });
+
+document.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+        e.preventDefault();   // stop form submit
+
+    //     const active = document.querySelector(".question.active");
+    //     if (!active) return;
+
+    //     const qNum = Number(active.id.replace("q", ""));
+
+    //     // CASE 1 → q0 (first & last name)
+    //     if (qNum === 0) {
+    //         nextQuestion(0);
+    //         return;
+    //     }
+
+    //     // CASE 2 → MC QUESTIONS (q1–q9)
+    //     const radios = active.querySelectorAll("input[type='radio']");
+    //     if (radios.length > 0) {
+    //         // only advance if they ACTUALLY selected an answer
+    //         const chosen = active.querySelector("input[type='radio']:checked");
+    //         if (chosen) {
+    //             nextQuestion(qNum);
+    //         } else {
+    //             alert("Please select an answer before continuing.");
+    //         }
+    //         return;
+    //     }
+
+    //     // CASE 3 → q10 submit page (Enter should submit)
+    //     if (qNum === 10) {
+    //         document.getElementById("quizForm").submit();
+    //     }
+    // }
+}});
+
+function validateInit() {
+    const first = document.querySelector("input[name='firstName']");
+    const last = document.querySelector("input[name='lastName']");
+    const mail = document.querySelector("input[name='email']");
+    const ring = document.querySelector("input[name='phone']");
+
+    if (!first.value.trim() || !last.value.trim() || !mail.value.trim() || !ring.value.trim()) {
+        alert("Please complete all fields.");
+        return;
+    }
+
+    nextQuestion(0);
+}
+
+function nextQuestion(num) {
+    // hide current
+    document.getElementById("q" + num).classList.remove("active");
+    // show next
+    document.getElementById("q" + (num + 1)).classList.add("active");
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+
+    <style>
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px 16px;
+            background-color: var(--primary-green);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .back-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .profile-container {
+            margin: 100px auto;
+            max-width: 600px;
+            background: white;
+            padding: 2em;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .profile-name {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 0.5em;
+        }
+
+        .profile-info {
+            color: #555;
+            margin-top: 10px;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Back to portal -->
+<form action="/portal" method="GET">
+    <button type="submit" class="back-btn">← Back</button>
+</form>
+
+<div class="profile-container">
+    <div class="profile-name">{{ patient.first_name }} {{ patient.last_name }}</div>
+
+    <div class="profile-info">
+        <!-- <p><strong>ID:</strong> {{ patient.id }}</p> -->
+        <p><strong>Email:</strong> {{ patient.email }}</p>
+        <p><strong>Phone:</strong> {{ patient.phone }}</p>
+        <!-- <p><strong>Date of Birth:</strong> {{ patient.dob }}</p> -->
+        <p><strong>Preferance 1:</strong> {{ patient.pref1 }}</p>
+        <p><strong>Preferance 2:</strong> {{ patient.pref2 }}</p>
+        <p><strong>Preferance 3:</strong> {{ patient.pref3 }}</p>
+        <p><strong>Preferance 4:</strong> {{ patient.pref4 }}</p>
+        <p><strong>Preferance 5:</strong> {{ patient.pref5 }}</p>
+        <p><strong>Preferance 6:</strong> {{ patient.pref6 }}</p>
+        <p><strong>Preferance 7:</strong> {{ patient.pref7 }}</p>
+        <p><strong>Preferance 8:</strong> {{ patient.pref8 }}</p>
+        <p><strong>Preferance 9:</strong> {{ patient.pref9 }}</p>
+        <p><strong>Preferance 10:</strong> {{ patient.pref10 }}</p>
+        <p><strong>Notes:</strong> {{ patient.notes }}</p>
+
+
+        <!-- any other fields you want -->
+    </div>
+</div>
+
+</body>
+</html>

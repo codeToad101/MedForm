@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+<style>
+.question { display: none; }
+.question.active { display: block; }
+/* Quiz-specific styles, integrated with global CSS */
+        /* .quiz-container {
+            max-width: 600px;
+            margin: 2em auto;
+            background-color: var(--light-green);
+            padding: 2em;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        } */
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding-top: 2em;
+        }
+
+        .quiz-container {
+            max-width: 600px;
+            width: 90%;
+            margin: 0 auto;
+            background-color: var(--light-green);
+            padding: 2em;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 0.5em;
+        }
+
+        .question {
+            display: none;
+        }
+
+        .question.active {
+            display: block;
+        }
+
+        .question p {
+            font-weight: 500;
+            margin-bottom: 1em;
+        }
+
+        .question label {
+            display: block;
+            margin-bottom: 0.5em;
+            cursor: pointer;
+        }
+
+        .next-btn {
+            margin-top: 1em;
+        }
+
+        input[type="text"] {
+            width: 95%;
+            padding: 0.6em;
+            margin-bottom: 1em;
+            border: 1px solid #c8d8ce;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+</style>
+</head>
+<body>
+
+<h1>Register Below</h1>
+<div class="quiz-container">
+<form id="form" method="POST" action="/portal/registration/{{ token }}">
+
+    <!-- init -->
+    <div class="question active">
+        <p> ans</p>
+        <label>First Name:</label>
+        <input type="text" name="firstName" placeholder="First Name" required>
+        <label>Last Name:</label>
+        <input type="text" name="lastName" placeholder="Last Name" required>
+        <label>Email:</label>
+        <input type="text" name="email" placeholder="Email" required>
+        <label>Username:</label>
+        <input type="text" name="userName" placeholder="Username" required>
+        <label>Password:</label>
+        <input type="text" name="password" placeholder="Password" required>
+        <button type="submit">Submit</button>
+    </div>
+
+</form>
+</div>
+
+
+<script>
+// document.addEventListener("keydown", function (e) {
+//     if (e.key === "Enter") {
+//         const active = document.querySelector(".question.active");
+//         const inputs = active.querySelectorAll("input[type='text']");
+//         if (inputs.length > 0) {
+//             e.preventDefault();
+//             nextQuestion(Number(active.id.replace("q", "")));
+//         }
+//     }
+// });
+
+document.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+        e.preventDefault();   // stop form submit
+
+    //     const active = document.querySelector(".question.active");
+    //     if (!active) return;
+
+    //     const qNum = Number(active.id.replace("q", ""));
+
+    //     // CASE 1 → q0 (first & last name)
+    //     if (qNum === 0) {
+    //         nextQuestion(0);
+    //         return;
+    //     }
+
+    //     // CASE 2 → MC QUESTIONS (q1–q9)
+    //     const radios = active.querySelectorAll("input[type='radio']");
+    //     if (radios.length > 0) {
+    //         // only advance if they ACTUALLY selected an answer
+    //         const chosen = active.querySelector("input[type='radio']:checked");
+    //         if (chosen) {
+    //             nextQuestion(qNum);
+    //         } else {
+    //             alert("Please select an answer before continuing.");
+    //         }
+    //         return;
+    //     }
+
+    //     // CASE 3 → q10 submit page (Enter should submit)
+    //     if (qNum === 10) {
+    //         document.getElementById("quizForm").submit();
+    //     }
+    // }
+}});
+
+function validateInit() {
+    const first = document.querySelector("input[name='firstName']");
+    const last = document.querySelector("input[name='lastName']");
+    const user = document.querySelector("input[name='userName']");
+    const pass = document.querySelector("input[name='password']");
+    const mail = document.querySelector("input[name='email']");
+
+    if (!first.value.trim() || !last.value.trim() || !user.value.trim() || !pass.value.trim() || !mail.value.trim()) {
+        alert("Please complete all fields.");
+        return;
+    }
+
+    nextQuestion(0);
+}
+</script>
+
+</body>
+</html>

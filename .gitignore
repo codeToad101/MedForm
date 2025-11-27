@@ -1,0 +1,3 @@
+medVenv
+**/__pycache__/
+wellness/secret.py

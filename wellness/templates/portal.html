@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WHEELHOUSE</title>
+    <link href="{{ url_for('static', filename='styles/style.css') }}" rel="stylesheet">
+    
+    <style>
+        /* --- Portal-Specific Additions --- */
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2em 2em;
+            background-color: var(--primary-green);
+            color: white;
+        }
+
+        .portal-buttons {
+            display: flex;
+            gap: 1em;
+        }
+
+        .portal-btn {
+            background-color: white;
+            color: var(--primary-dark);
+            border: 2px solid var(--primary-dark);
+            padding: 0.6em 1em;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .portal-btn:hover {
+            background-color: var(--primary-dark);
+            color: white;
+        }
+
+        .logout-btn {
+            background-color: white;
+            color: var(--primary-dark);
+            border: 2px solid var(--primary-dark);
+            padding: 0.6em 1em;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-right: auto;
+            text-decoration: none;
+        }
+
+        .logout-btn:hover {
+            background-color: var(--primary-dark);
+            color: white;
+            text-decoration: none;
+        }
+
+        .greeting {
+            text-align: center;
+            margin-top: 2em;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .search-box {
+            text-align: center;
+            margin-top: 2em;
+        }
+
+        .search-box input[type="text"] {
+            padding: 0.7em;
+            width: 350px;
+            border-radius: 6px;
+            border: 1px solid var(--primary-green);
+            font-size: 1rem;
+        }
+
+        .search-box button {
+            margin-left: 0.5em;
+            padding: 0.7em 1.2em;
+            border-radius: 6px;
+            border: none;
+            background-color: var(--primary-green);
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .search-box button:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        /* .modal-backdrop {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        } */
+
+        .modal-backdrop {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            }
+
+        .modal-box {
+            background: white;
+            padding: 20px;
+            width: 380px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .close-btn {
+            margin-top: 20px;
+            padding: 10px 18px;
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="placeholder"></div>
+        
+        <a href="{{ url_for('auth.logout') }}" class="logout-btn">
+            Logout
+        </a>
+
+        <div class="portal-buttons">
+            <form method="post">
+            <button name = "top_btn" value = "team" class="portal-btn">
+                ➕ Add Team Member
+            </button>
+
+            <button name = "top_btn" value = "intake" class="portal-btn">
+                Intake Link
+            </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Greeting -->
+    <div class="greeting">
+        Hello, {{ first_name }}!
+    </div>
+
+    <!-- Search -->
+    <div class="search-box">
+        <form action="/portal" method="post">
+            <input type="text" name="search_value" placeholder="Search patient info..." required>
+            <button name = "btn" value = "info" type="submit">Retrieve</button>
+        </form>
+    </div>
+
+{% if generated_url %}
+<div class="modal-backdrop">
+    <div class="modal-box">
+        <h3>Make sure you copy the following URL before continuing:</h3>
+
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <input id="generatedUrlField" type="text" value="{{ generated_url }}" readonly style="flex:1; padding:8px;">
+            <button type="button" id="copyBtn">Copy</button>
+        </div>
+
+        <form method="GET" action="{{ url_for('entry.inPortal') }}">
+            <button type="submit" class="close-btn">Close</button>
+        </form>
+    </div>
+</div>
+{% endif %}
+
+{% if staff_url %}
+<div class="modal-backdrop" id="urlModal">
+    <div class="modal-box">
+
+        <!-- Step 1: Warning -->
+        <div id="warningStep">
+            <h3>WARNING</h3>
+            <p>WARNING: You are adding to the WHEELHOUSE team, not sending out an intake form. Do you wish to continue?</p>
+            <div style="display:flex; justify-content:flex-end; gap:10px;">
+                <button type="button" onclick="closeModal()">No</button>
+                <button type="button" onclick="showUrlStep()">Yes</button>
+            </div>
+        </div>
+
+        <!-- Step 2: Show URL -->
+        <div id="urlStep" style="display:none;">
+            <h3>Make sure you copy the following URL before continuing:</h3>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <input id="generatedUrlField" type="text" value="{{ staff_url }}" readonly style="flex:1; padding:8px;">
+                <button type="button" id="copyStaffBtn">Copy</button>
+            </div>
+            <form method="GET" action="{{ url_for('entry.inPortal') }}">
+                <button type="submit" class="close-btn">Close</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<script>
+function closeModal() {
+    document.getElementById('urlModal').style.display = 'none';
+}
+
+// Show URL after confirming warning
+function showUrlStep() {
+    document.getElementById('warningStep').style.display = 'none';
+    document.getElementById('urlStep').style.display = 'block';
+}
+
+document.getElementById("copyStaffBtn").onclick = function() {
+    const field = document.getElementById("generatedUrlField");
+    field.select();
+    field.setSelectionRange(0, 99999); // For mobile devices
+
+    navigator.clipboard.writeText(field.value).then(() => {
+        alert("URL copied to clipboard!");
+    }).catch(err => {
+        alert("Failed to copy: " + err);
+    });
+};
+</script>
+
+{% endif %}
+
+{% if results %}
+<div style="margin-top: 30px; text-align:center;">
+    <h3>Matches Found:</h3>
+
+    <div style="margin-top: 15px; display:flex; flex-direction:column; gap:10px; align-items:center;">
+        {% for r in results %}
+        <a href="/portal/patient/{{ r.id }}" 
+           style="
+           text-decoration: none;
+           width: 50%;
+           background: var(--light-green);
+           padding: 12px 18px;
+           border-radius: 8px;
+           color: var(--primary-dark);
+           font-weight: 600;
+           box-shadow: 0 3px 8px rgba(0,0,0,0.10);
+           transition: 0.2s;
+           ">
+            {{ r.name }}
+        </a>
+        {% endfor %}
+    </div>
+
+</div>
+{% endif %}
+
+
+
+{% if generated_url %}
+<script>
+
+document.getElementById("copyBtn").onclick = function() {
+    const field = document.getElementById("generatedUrlField");
+    field.select();
+    field.setSelectionRange(0, 99999); // For mobile devices
+
+    navigator.clipboard.writeText(field.value).then(() => {
+        alert("URL copied to clipboard!");
+    }).catch(err => {
+        alert("Failed to copy: " + err);
+    });
+};
+</script>
+{% endif %}
+
+</body>
+</html>

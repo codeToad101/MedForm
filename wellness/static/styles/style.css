@@ -1,0 +1,161 @@
+/* ---------------------------
+   Global Styles
+---------------------------- */
+body {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    background-color: #f4f8f5; /* soft green-tinted white */
+    color: #2d3a32; /* deep, calm green-gray */
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* Accent Colors */
+:root {
+    --primary-green: #7bbf8f;     /* calming medium green */
+    --primary-dark: #46785a;      /* earthy green for emphasis */
+    --light-green: #e6f3ea;       /* very soft green background */
+}
+
+/* ---------------------------
+   Headers & Text
+---------------------------- */
+h1, h2, h3, h4 {
+    color: var(--primary-dark);
+    font-weight: 600;
+    margin-top: 0;
+}
+
+p {
+    margin-bottom: 1.2em;
+}
+
+/* ---------------------------
+   Layout Containers
+---------------------------- */
+.header {
+    background-color: var(--primary-green);
+    color: white;
+    padding: 1.5em;
+    text-align: center;
+}
+
+.section {
+    padding: 2em 1.5em;
+    background-color: var(--light-green);
+    margin-bottom: 1.5em;
+    border-radius: 6px;
+}
+
+/* ---------------------------
+   Buttons
+---------------------------- */
+button,
+.btn {
+    background-color: var(--primary-green);
+    border: none;
+    padding: 0.75em 1.5em;
+    color: white;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+}
+
+button:hover,
+.btn:hover {
+    background-color: var(--primary-dark);
+}
+
+/* ---------------------------
+   Navigation
+---------------------------- */
+nav {
+    background-color: var(--primary-dark);
+    padding: 0.75em;
+    text-align: center;
+}
+
+nav a {
+    color: #ffffff;
+    margin: 0 1em;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* ---------------------------
+   Footer
+---------------------------- */
+.footer {
+    background-color: var(--primary-dark);
+    color: white;
+    padding: 1em;
+    text-align: center;
+    font-size: 0.9em;
+    margin-top: 3em;
+    opacity: 0.9;
+}
+
+/*login specific:*/
+
+/* Centering wrapper */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* full screen height */
+}
+
+/* Login form card */
+.login-container form {
+    background-color: var(--light-green);
+    padding: 2em;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
+    width: 320px;
+
+    /*text-align: center;*/
+}
+
+/* Form labels */
+.login-container label {
+    font-weight: 600;
+    color: var(--primary-dark);
+    margin-left: 5px;
+}
+
+/* Inputs */
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+
+    padding: 0.6em;
+    margin-bottom: 1em;
+    border: 1px solid #c8d8ce;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+/* Submit button */
+.login-container button {
+    width: 100%;
+    padding: 0.75em;
+    background-color: var(--primary-green);
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.login-container button:hover {
+    background-color: var(--primary-dark);
+}

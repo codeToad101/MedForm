@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+    <style>
+        /* Centered thank-you message */
+        .thank-you-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            background-color: var(--light-green);
+        }
+
+        .thank-you-container h1 {
+            font-size: 3rem;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+
+        .thank-you-container p {
+            font-size: 1.2rem;
+            color: var(--primary-dark);
+        }
+    </style>
+</head>
+<body>
+<div class="thank-you-container">
+    <h1>Thank You!</h1>
+    <p>Please close this page upon completion.</p>
+</div>
+</body>
+</html>
