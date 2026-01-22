@@ -1,3 +1,4 @@
 medVenv
 **/__pycache__/
 wellness/secret.py
+.DS_Store
