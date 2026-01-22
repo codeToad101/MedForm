@@ -28,9 +28,8 @@ def login():
 
         return render_template("log.html", error="Invalid username/password")
     return render_template("log.html")
-    #return render_template("log.html")
 
-@bp.route('/portal', methods=['GET', 'POST']) #still auto-remembering...bad
+@bp.route('/portal', methods=['GET', 'POST']) #auto-remember to your liking?
 @login_required
 def inPortal():
 
@@ -130,14 +129,16 @@ def Staff_URL_maker():
     return full_url
     #return t.token
 
+#potentially helpful nugget funcs below
+
 # @bp.route('/add_dummy')
 # def add_dummy():
 #     hashed = generate_password_hash("abc123")
 #     dummy = Admin(
 #         username="testuser",
 #         password_hash=hashed,
-#         first_name="adamtobe",
-#         last_name="butisntyet"
+#         first_name="person1",
+#         last_name="wuzhere"
 #     )
 #     db.session.add(dummy)
 #     db.session.commit()
@@ -147,10 +148,6 @@ def Staff_URL_maker():
 # def show_dummy():
 #     user = Admin.query.filter_by(username="testuser").first()
 #     return f"Found user: {user.first_name} {user.last_name}"
-
-# CREATE TABLE validURL (
-#         link VARCHAR(100) UNIQUE
-#     );
 
 # @bp.route('/logout_all')
 # def logout_all():

@@ -41,7 +41,7 @@ def quiz(token):
         pref10 = answers[9],
         email = mail,
         phone = ring,
-        notes = None
+        notes = None #tweak this so details can be added here
     )
     db.session.add(dummy)
     key.used = True
